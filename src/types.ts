@@ -7,5 +7,6 @@ export const dogSchema = z.object({
   description: z.string(),
   isFavorite: z.boolean(),
 });
-
 export type Dog = z.infer<typeof dogSchema>;
+
+export type TActiveTab = "all" | "favorite" | "unFavorite" | "createDog";

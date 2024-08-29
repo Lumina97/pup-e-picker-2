@@ -1,16 +1,48 @@
+import { Dog } from "./types";
+export const baseUrl = "http://localhost:3000";
+
 const getAllDogs = () => {
-  // fill out method
+  return fetch(baseUrl + "/dogs").then((response) => {
+    if (!response.ok) throw new Error(`Request failed: ${response.statusText}`);
+    return response.json();
+  });
 };
 
-const postDog = () => {
-  // fill out method
+const postDog = (dog: Omit<Dog, "id">) => {
+  return fetch(`${baseUrl}/dogs`, {
+    body: JSON.stringify(dog),
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (!response.ok) throw new Error(`Request failed: ${response.statusText}`);
+    return response.json();
+  });
 };
-const deleteDogRequest = () => {
-  // fill out method
+const deleteDogRequest = (id: number) => {
+  return fetch(`${baseUrl}/dogs/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (!response.ok) throw new Error(`Request failed: ${response.statusText}`);
+    return response.json();
+  });
 };
 
-const patchFavoriteForDog = () => {
-  // fill out method
+const patchFavoriteForDog = (id: number, part: { isFavorite: boolean }) => {
+  return fetch(`${baseUrl}/dogs/${id}`, {
+    body: JSON.stringify(part),
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (!response.ok) throw new Error(`Request failed: ${response.statusText}`);
+    return response.json();
+  });
 };
 
 export const Requests = {
