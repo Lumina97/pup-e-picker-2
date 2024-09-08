@@ -8,16 +8,16 @@ import {
 import { Dog, TActiveTab } from "../types";
 import { Requests } from "../api";
 
-//Im sure you'll let me know but im wondering if the amount of stuff I "provide" here is too much and if I should split this up
-//but since it's all related to the same thing I don't see how I could.
 type TDogsProvider = {
   isLoadingData: boolean;
-  dogsList: Record<TActiveTab, Dog[]>;
+  activeDogsList: Dog[];
   activeTab: TActiveTab;
-  setActiveTab: (newActiveTab: TActiveTab) => void;
+  favoriteDogCount: number;
+  nonFavoriteDogCount: number;
+  setNewActiveTab: (newActiveTab: TActiveTab) => void;
   createDog: (dog: Omit<Dog, "id">) => Promise<void>;
-  deleteDog: (id: number) => void;
-  toggleFavorite: (id: number, isFavorite: boolean) => void;
+  deleteDog: (id: number) => Promise<void>;
+  toggleFavorite: (id: number, isFavorite: boolean) => Promise<void>;
 };
 
 const DogsContext = createContext<TDogsProvider>({} as TDogsProvider);
@@ -37,10 +37,15 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
     createDog: [],
   };
 
+  const setNewActiveTab = (newTab: TActiveTab) => {
+    const newValue = newTab === activeTab ? "all" : newTab;
+    setActiveTab(newValue);
+  };
+
   const deleteDog = (id: number) => {
     setAllDogs(allDogs.filter((dog) => dog.id !== id));
 
-    Requests.deleteDogRequest(id).catch(() => setAllDogs(allDogs));
+    return Requests.deleteDogRequest(id).catch(() => setAllDogs(allDogs));
   };
 
   const toggleFavorite = (id: number, isFavorite: boolean) => {
@@ -50,11 +55,13 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
       )
     );
 
-    Requests.patchFavoriteForDog(id, { isFavorite: isFavorite }).catch(() =>
-      setAllDogs(allDogs)
+    return Requests.patchFavoriteForDog(id, { isFavorite: isFavorite }).catch(
+      () => setAllDogs(allDogs)
     );
   };
 
+  //the reason I was not returning the promises is because I would have to always add
+  //a .catch of void to the function when calling it. otherwise my compiler yells at me.
   const createDog = (dog: Omit<Dog, "id">) => {
     setIsLoadingData(true);
     return Requests.postDog(dog)
@@ -70,23 +77,25 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getAllDogs = () => {
-    void Requests.getAllDogs().then((dogs: Dog[]) => {
+    return Requests.getAllDogs().then((dogs: Dog[]) => {
       setAllDogs(dogs);
     });
   };
 
   useEffect(() => {
-    getAllDogs();
+    void getAllDogs();
   }, []);
 
   return (
     <DogsContext.Provider
       value={{
         isLoadingData,
-        dogsList,
+        activeDogsList: dogsList[activeTab],
         activeTab,
-        setActiveTab,
+        setNewActiveTab,
         deleteDog,
+        favoriteDogCount: dogsList.favorite.length,
+        nonFavoriteDogCount: dogsList.unFavorite.length,
         toggleFavorite,
         createDog,
       }}

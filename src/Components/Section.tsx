@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { useDogs } from "../Providers/DogsProvider";
-import { TActiveTab } from "../types";
 
 export const Section = ({
   label,
@@ -9,12 +8,8 @@ export const Section = ({
   label: string;
   children: ReactNode;
 }) => {
-  const { setActiveTab, activeTab, dogsList } = useDogs();
-
-  const setNewActiveTab = (newTab: TActiveTab) => {
-    const newValue = newTab === activeTab ? "all" : newTab;
-    setActiveTab(newValue);
-  };
+  const { setNewActiveTab, activeTab, favoriteDogCount, nonFavoriteDogCount } =
+    useDogs();
 
   return (
     <section id="main-section">
@@ -27,7 +22,7 @@ export const Section = ({
               setNewActiveTab("favorite");
             }}
           >
-            favorited ( {dogsList["favorite"].length} )
+            favorited ( {favoriteDogCount} )
           </div>
 
           <div
@@ -38,7 +33,7 @@ export const Section = ({
               setNewActiveTab("unFavorite");
             }}
           >
-            unfavorited ( {dogsList["unFavorite"].length} )
+            unfavorited ( {nonFavoriteDogCount} )
           </div>
           <div
             className={`selector ${

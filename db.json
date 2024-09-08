@@ -1,60 +1,46 @@
 {
   "dogs": [
     {
-      "name": "Sigmund",
-      "image": "/assets/dalmation.png",
-      "description": "Bespoke happy Hybrid Hybrid before East revolutionize Planner",
+      "name": "Deborah",
+      "image": "/assets/cowardly.png",
+      "description": "recompense Cis uncertainty HTTP ampere XML motivating meaningfully",
       "isFavorite": true,
-      "id": 10
+      "id": 0
     },
     {
-      "name": "Ahmad",
-      "image": "/assets/corgi.png",
-      "description": "against joule Bicycle target opposite synthesize Genderqueer",
+      "name": "Javonte",
+      "image": "/assets/chihuahua.avif",
+      "description": "green yuck payment Rap Southwest",
       "isFavorite": false,
+      "id": 15
+    },
+    {
+      "name": "Hermina",
+      "image": "/assets/dalmation.png",
+      "description": "bypassing Cyclocross deposit versus Rhodium grey bus",
+      "isFavorite": false,
+      "id": 16
+    },
+    {
+      "name": "Carolina",
+      "image": "/assets/cowardly.png",
+      "description": "Configuration Pizza Ytterbium copy sniveling Venezuela North Plaza",
+      "isFavorite": true,
       "id": 17
     },
     {
-      "name": "Burnice",
-      "image": "/assets/boxer.png",
-      "description": "Northeast commemorate Towels Rustic Clothing primary schemas kilogram",
-      "isFavorite": true,
+      "name": "Beau",
+      "image": "/assets/chihuahua.avif",
+      "description": "DNS feed withdrawal grey Wagon",
+      "isFavorite": false,
       "id": 18
     },
     {
-      "name": "Olin",
+      "name": "Alexane",
       "image": "/assets/blue-heeler.png",
-      "description": "exalted yuppify firewall purple candela",
-      "isFavorite": true,
+      "description": "nonconforming tasty Wooden Ferrari modernity ah beside",
+      "isFavorite": false,
       "id": 19
-    },
-    {
-      "name": "123",
-      "description": "321",
-      "image": "/assets/chihuahua.avif",
-      "isFavorite": false,
-      "id": 20
-    },
-    {
-      "name": "123",
-      "description": "123",
-      "image": "/assets/corgi.png",
-      "isFavorite": false,
-      "id": 21
-    },
-    {
-      "name": "231",
-      "description": "312",
-      "image": "/assets/blue-heeler.png",
-      "isFavorite": false,
-      "id": 22
-    },
-    {
-      "name": "123",
-      "description": "123",
-      "image": "/assets/corgi.png",
-      "isFavorite": false,
-      "id": 23
     }
   ]
 }

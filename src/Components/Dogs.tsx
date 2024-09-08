@@ -2,12 +2,12 @@ import { useDogs } from "../Providers/DogsProvider";
 import { DogCard } from "./DogCard";
 
 export const Dogs = () => {
-  const { activeTab, dogsList, deleteDog, toggleFavorite, isLoadingData } =
+  const { activeDogsList, deleteDog, toggleFavorite, isLoadingData } =
     useDogs();
 
   return (
     <>
-      {dogsList[activeTab].map((dog) => {
+      {activeDogsList.map((dog) => {
         return (
           <DogCard
             dog={{
@@ -19,13 +19,13 @@ export const Dogs = () => {
             }}
             key={dog.id}
             onTrashIconClick={() => {
-              deleteDog(dog.id);
+              void deleteDog(dog.id);
             }}
             onHeartClick={() => {
-              toggleFavorite(dog.id, false);
+              void toggleFavorite(dog.id, false);
             }}
             onEmptyHeartClick={() => {
-              toggleFavorite(dog.id, true);
+              void toggleFavorite(dog.id, true);
             }}
             isLoading={isLoadingData}
           />
